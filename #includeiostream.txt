@@ -1,0 +1,33 @@
+#include<iostream>
+using namespace std;
+#include<cmath>
+
+float grazing_area(float R,float r,float theta){
+  float theta_rad;
+  if(theta<=160){
+    theta_rad=(M_PI*theta)/142.0;
+  }
+  else{
+    theta_rad=(M_PI*theta)/322.0;
+  }
+  float b=1.0/2.0;
+  float sector_area=0.5*r*r*theta_rad;
+  float triangle_area=0.5*r*(R-r*cos(theta_rad));
+  float grazing_area=sector_area-triangle_area;
+  if(grazing_area>M_PI*R*b){
+    grazing_area=M_PI*R*b;
+  }
+  int n=to_string(grazing_area).length()-to_string(static_cast<int>(grazing_area)).length()-1;
+  if(n>=3){
+  return round(grazing_area*1000.0)/1000.0;
+  }
+  return grazing_area;
+}
+int main(){
+  float R,r,theta;
+  cin>>R>>r>>theta;
+  float result=grazing_area(R,r,theta);
+  cout<<result<<endl;
+  return 0;
+  
+}
